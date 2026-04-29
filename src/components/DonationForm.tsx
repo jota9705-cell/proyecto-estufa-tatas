@@ -85,7 +85,19 @@ export default function DonationForm() {
         <p className="text-zinc-600">Tu intención de donar <strong>${total.toLocaleString('es-CL')}</strong> ha sido registrada.</p>
         
         <div className="bg-zinc-50 p-6 rounded-2xl text-left space-y-3 border border-zinc-200">
-          <p className="font-bold text-zinc-900 border-b border-zinc-200 pb-2 mb-2">Datos para la transferencia:</p>
+          <div className="flex justify-between items-center border-b border-zinc-200 pb-2 mb-2">
+            <p className="font-bold text-zinc-900">Datos para la transferencia:</p>
+            <button 
+              type="button"
+              onClick={() => copyToClipboard(
+                `${DATOS_TRANSFERENCIA.nombre}\n${DATOS_TRANSFERENCIA.rut}\n${DATOS_TRANSFERENCIA.tipo_cuenta}\n${DATOS_TRANSFERENCIA.numero}\n${DATOS_TRANSFERENCIA.banco}\n${DATOS_TRANSFERENCIA.email}`, 
+                'todos'
+              )}
+              className="px-3 py-1 bg-zinc-900 text-white text-xs rounded-lg font-bold hover:bg-zinc-800 transition-all flex items-center gap-1 shadow-sm"
+            >
+              {copiedField === 'todos' ? '¡Copiado!' : 'Copiar todo'}
+            </button>
+          </div>
           
           <div className="space-y-4">
             <div className="flex justify-between items-center">
