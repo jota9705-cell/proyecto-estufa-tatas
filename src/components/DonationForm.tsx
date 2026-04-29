@@ -146,12 +146,19 @@ export default function DonationForm() {
         <div className="space-y-4">
           <label className="block text-sm font-medium text-zinc-700">Monto del aporte (CLP)</label>
           <input
-            type="number"
-            value={montoAporte}
-            onChange={(e) => setMontoAporte(Number(e.target.value))}
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={montoAporte === 0 ? '' : montoAporte}
+            onChange={(e) => {
+              const val = e.target.value.replace(/\D/g, '');
+              setMontoAporte(val === '' ? 0 : Number(val));
+            }}
+            onFocus={(e) => {
+              if (montoAporte === 0) setMontoAporte(0);
+            }}
             className="w-full p-4 rounded-2xl border border-zinc-200 text-2xl font-bold focus:ring-2 focus:ring-blue-500 outline-none text-zinc-900"
-            min="1000"
-            step="1000"
+            placeholder="0"
           />
         </div>
       )}
