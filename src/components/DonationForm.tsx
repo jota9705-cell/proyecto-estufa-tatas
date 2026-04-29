@@ -84,7 +84,7 @@ export default function DonationForm() {
         <h2 className="text-2xl font-bold text-zinc-900">¡Muchas gracias, {nombre || 'familiar'}!</h2>
         <p className="text-zinc-600">Tu intención de donar <strong>${total.toLocaleString('es-CL')}</strong> ha sido registrada.</p>
         
-        <div className="bg-zinc-50 p-6 rounded-2xl text-left space-y-3 border border-zinc-200">
+        <div className="bg-zinc-50 p-6 rounded-2xl text-left space-y-4 border border-zinc-200">
           <div className="flex justify-between items-center border-b border-zinc-200 pb-2 mb-2">
             <p className="font-bold text-zinc-900">Datos para la transferencia:</p>
             <button 
@@ -99,69 +99,13 @@ export default function DonationForm() {
             </button>
           </div>
           
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Banco</p>
-                <p className="text-zinc-900 font-medium">{DATOS_TRANSFERENCIA.banco}</p>
-              </div>
-            </div>
-
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Tipo de Cuenta</p>
-                <p className="text-zinc-900 font-medium">{DATOS_TRANSFERENCIA.tipo_cuenta}</p>
-              </div>
-            </div>
-
-            <div className="flex justify-between items-center group">
-              <div>
-                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">N° Cuenta</p>
-                <p className="text-zinc-900 font-bold text-lg">{DATOS_TRANSFERENCIA.numero}</p>
-              </div>
-              <button 
-                type="button"
-                onClick={() => copyToClipboard(DATOS_TRANSFERENCIA.numero, 'numero')}
-                className="p-2 hover:bg-zinc-200 rounded-lg transition-colors text-zinc-500 flex items-center gap-1 text-xs"
-              >
-                {copiedField === 'numero' ? '¡Copiado!' : <><CreditCard size={16} /> Copiar</>}
-              </button>
-            </div>
-
-            <div className="flex justify-between items-center border-t border-zinc-100 pt-3">
-              <div>
-                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Nombre</p>
-                <p className="text-zinc-900 font-medium">{DATOS_TRANSFERENCIA.nombre}</p>
-              </div>
-            </div>
-
-            <div className="flex justify-between items-center group">
-              <div>
-                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">RUT</p>
-                <p className="text-zinc-900 font-medium">{DATOS_TRANSFERENCIA.rut}</p>
-              </div>
-              <button 
-                type="button"
-                onClick={() => copyToClipboard(DATOS_TRANSFERENCIA.rut, 'rut')}
-                className="p-2 hover:bg-zinc-200 rounded-lg transition-colors text-zinc-500 flex items-center gap-1 text-xs"
-              >
-                {copiedField === 'rut' ? '¡Copiado!' : <><CreditCard size={16} /> Copiar</>}
-              </button>
-            </div>
-
-            <div className="flex justify-between items-center group border-t border-zinc-100 pt-3">
-              <div>
-                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Email</p>
-                <p className="text-zinc-900 font-medium">{DATOS_TRANSFERENCIA.email}</p>
-              </div>
-              <button 
-                type="button"
-                onClick={() => copyToClipboard(DATOS_TRANSFERENCIA.email, 'email')}
-                className="p-2 hover:bg-zinc-200 rounded-lg transition-colors text-zinc-500 flex items-center gap-1 text-xs"
-              >
-                {copiedField === 'email' ? '¡Copiado!' : <><Send size={16} /> Copiar</>}
-              </button>
-            </div>
+          <div className="space-y-1 text-zinc-900 font-medium">
+            <p>{DATOS_TRANSFERENCIA.nombre}</p>
+            <p>{DATOS_TRANSFERENCIA.rut}</p>
+            <p>{DATOS_TRANSFERENCIA.tipo_cuenta}</p>
+            <p className="font-bold text-lg">{DATOS_TRANSFERENCIA.numero}</p>
+            <p>{DATOS_TRANSFERENCIA.banco}</p>
+            <p>{DATOS_TRANSFERENCIA.email}</p>
           </div>
         </div>
         
