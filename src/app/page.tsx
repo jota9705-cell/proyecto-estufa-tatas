@@ -21,7 +21,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto -mt-10 px-6 space-y-8">
+      <div className="max-w-4xl mx-auto md:-mt-10 px-4 md:px-6 space-y-6 md:space-y-8">
         {/* Mensaje de estado de pago */}
         <StatusMessage />
 
@@ -31,34 +31,34 @@ export default function Home() {
         </section>
 
         {/* Formulario de Donación */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          <div className="space-y-6 order-2 md:order-1">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-start">
+          <div className="space-y-6 order-1 md:order-1">
             <DonationForm />
           </div>
 
-          <div className="space-y-6 order-1 md:order-2 sticky top-8">
-            <div className="bg-white p-8 rounded-3xl border border-zinc-100 shadow-sm space-y-4">
+          <div className="space-y-6 order-2 md:order-2 md:sticky md:top-8">
+            <div className="bg-white p-6 md:p-8 rounded-3xl border border-zinc-100 shadow-sm space-y-4">
               <h3 className="text-xl font-bold text-zinc-900">¿Por qué donar?</h3>
-              <p className="text-zinc-600 leading-relaxed">
+              <p className="text-zinc-600 leading-relaxed text-sm md:text-base">
                 Nuestros abuelos usan una estufa <strong>Bosca Hera +</strong> que consume aproximadamente 1.5kg de pellet por hora.
               </p>
               <ul className="space-y-3">
-                <li className="flex gap-3 text-zinc-600">
+                <li className="flex gap-3 text-zinc-600 text-sm md:text-base">
                   <span className="text-orange-500 font-bold">✓</span>
                   <span><strong>1 saco</strong> = 2 días de calor (6h/día).</span>
                 </li>
-                <li className="flex gap-3 text-zinc-600">
+                <li className="flex gap-3 text-zinc-600 text-sm md:text-base">
                   <span className="text-orange-500 font-bold">✓</span>
                   <span><strong>$4.500</strong> es el valor de un saco de 18,5kg.</span>
                 </li>
-                <li className="flex gap-3 text-zinc-600">
+                <li className="flex gap-3 text-zinc-600 text-sm md:text-base">
                   <span className="text-orange-500 font-bold">✓</span>
                   <span>El fondo de estufa es para limpiezas de cañón y repuestos.</span>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-zinc-900 p-8 rounded-3xl text-white space-y-4">
+            <div className="bg-zinc-900 p-6 md:p-8 rounded-3xl text-white space-y-4">
               <h3 className="text-xl font-bold">Transparencia Total</h3>
               <p className="text-zinc-400 text-sm leading-relaxed">
                 Todo lo recaudado va directamente a la cuenta del administrador. Los pagos con tarjeta se procesan vía Mercado Pago y se descuenta una pequeña comisión de la plataforma.
