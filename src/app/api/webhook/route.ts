@@ -9,14 +9,23 @@ const client = new MercadoPagoConfig({
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { type, data } = body;
+    console.log('Webhook received:', body);
+    const { action, type, data } = body;
 
-    // Solo nos interesan las notificaciones de pagos
-    if (type === 'payment') {
-      const paymentId = data.id;
+    // Mercado Pago envía 'payment' como type y 'payment.created' o 'payment.updated' como action
+    if (type === 'payment' || action === 'payment.created' || action === 'payment.updated') {
+      const paymentId = data?.id || body.data?.id;
       
+      if (!paymentId) {
+        console.error('No payment ID found in webhook body');
+        return NextResponse.json({ error: 'No payment ID' }, { status: 400 });
+      }
+
       const payment = new Payment(client);
       const paymentDetails = await payment.get({ id: paymentId });
+
+      console.log('Payment status:', paymentDetails.status);
+      console.log('External reference:', paymentDetails.external_reference);
 
       if (paymentDetails.status === 'approved') {
         const donationId = paymentDetails.external_reference;
@@ -31,6 +40,7 @@ export async function POST(request: Request) {
             console.error('Error updating supabase:', error);
             return NextResponse.json({ error: 'Error updating database' }, { status: 500 });
           }
+          console.log('Donation approved successfully in Supabase');
         }
       }
     }
