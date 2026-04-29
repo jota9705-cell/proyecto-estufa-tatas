@@ -14,9 +14,16 @@ export default function DonationForm() {
   const [metodoPago, setMetodoPago] = useState<'mercadopago' | 'transferencia'>('mercadopago');
   const [loading, setLoading] = useState(false);
   const [showTransferencia, setShowTransferencia] = useState(false);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const total = tipo === 'saco_pellet' ? cantidadSacos * PRECIO_SACO : montoAporte;
   const diasCalor = tipo === 'saco_pellet' ? cantidadSacos * DIAS_POR_SACO : 0;
+
+  const copyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2000);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,17 +85,76 @@ export default function DonationForm() {
         <p className="text-zinc-600">Tu intención de donar <strong>${total.toLocaleString('es-CL')}</strong> ha sido registrada.</p>
         
         <div className="bg-zinc-50 p-6 rounded-2xl text-left space-y-3 border border-zinc-200">
-          <p className="font-bold text-zinc-900 border-bottom pb-2">Datos para la transferencia:</p>
-          <p className="text-zinc-900"><span className="text-zinc-500 text-sm">Banco:</span> {DATOS_TRANSFERENCIA.banco}</p>
-          <p className="text-zinc-900"><span className="text-zinc-500 text-sm">Tipo:</span> {DATOS_TRANSFERENCIA.tipo_cuenta}</p>
-          <p className="text-zinc-900"><span className="text-zinc-500 text-sm">N° Cuenta:</span> {DATOS_TRANSFERENCIA.numero}</p>
-          <p className="text-zinc-900"><span className="text-zinc-500 text-sm">Nombre:</span> {DATOS_TRANSFERENCIA.nombre}</p>
-          <p className="text-zinc-900"><span className="text-zinc-500 text-sm">RUT:</span> {DATOS_TRANSFERENCIA.rut}</p>
-          <p className="text-zinc-900"><span className="text-zinc-500 text-sm">Email:</span> {DATOS_TRANSFERENCIA.email}</p>
+          <p className="font-bold text-zinc-900 border-b border-zinc-200 pb-2 mb-2">Datos para la transferencia:</p>
+          
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Banco</p>
+                <p className="text-zinc-900 font-medium">{DATOS_TRANSFERENCIA.banco}</p>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Tipo de Cuenta</p>
+                <p className="text-zinc-900 font-medium">{DATOS_TRANSFERENCIA.tipo_cuenta}</p>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center group">
+              <div>
+                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">N° Cuenta</p>
+                <p className="text-zinc-900 font-bold text-lg">{DATOS_TRANSFERENCIA.numero}</p>
+              </div>
+              <button 
+                type="button"
+                onClick={() => copyToClipboard(DATOS_TRANSFERENCIA.numero, 'numero')}
+                className="p-2 hover:bg-zinc-200 rounded-lg transition-colors text-zinc-500 flex items-center gap-1 text-xs"
+              >
+                {copiedField === 'numero' ? '¡Copiado!' : <><CreditCard size={16} /> Copiar</>}
+              </button>
+            </div>
+
+            <div className="flex justify-between items-center border-t border-zinc-100 pt-3">
+              <div>
+                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Nombre</p>
+                <p className="text-zinc-900 font-medium">{DATOS_TRANSFERENCIA.nombre}</p>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center group">
+              <div>
+                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">RUT</p>
+                <p className="text-zinc-900 font-medium">{DATOS_TRANSFERENCIA.rut}</p>
+              </div>
+              <button 
+                type="button"
+                onClick={() => copyToClipboard(DATOS_TRANSFERENCIA.rut, 'rut')}
+                className="p-2 hover:bg-zinc-200 rounded-lg transition-colors text-zinc-500 flex items-center gap-1 text-xs"
+              >
+                {copiedField === 'rut' ? '¡Copiado!' : <><CreditCard size={16} /> Copiar</>}
+              </button>
+            </div>
+
+            <div className="flex justify-between items-center group border-t border-zinc-100 pt-3">
+              <div>
+                <p className="text-zinc-500 text-xs uppercase tracking-wider font-semibold">Email</p>
+                <p className="text-zinc-900 font-medium">{DATOS_TRANSFERENCIA.email}</p>
+              </div>
+              <button 
+                type="button"
+                onClick={() => copyToClipboard(DATOS_TRANSFERENCIA.email, 'email')}
+                className="p-2 hover:bg-zinc-200 rounded-lg transition-colors text-zinc-500 flex items-center gap-1 text-xs"
+              >
+                {copiedField === 'email' ? '¡Copiado!' : <><Send size={16} /> Copiar</>}
+              </button>
+            </div>
+          </div>
         </div>
         
-        <p className="text-sm text-zinc-500">
-          Una vez que realices la transferencia, el administrador validará tu aporte y se verá reflejado en el contador.
+        <p className="text-sm text-zinc-500 italic">
+          Tip: Copia el N° de cuenta y el RUT para agregarlo más rápido en tu App del banco.
         </p>
         
         <button 
